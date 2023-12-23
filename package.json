@@ -1,17 +1,26 @@
 {
-  "name": "gasales",
+  "name": "example-blog",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.3.3",
-    "astro": "^4.0.6",
-    "typescript": "^5.3.3"
+    "@appwrite.io/pink": "^0.0.6",
+    "@astrojs/mdx": "^2.0.2",
+    "@astrojs/rss": "^4.0.1",
+    "@astrojs/sitemap": "^3.0.3",
+    "@astrojs/vercel": "^6.1.0",
+    "appwrite": "^11.0.1",
+    "astro": "^4.0.7",
+    "nanostores": "^0.8.1",
+    "sanitize-html": "^2.10.0"
+  },
+  "devDependencies": {
+    "@types/sanitize-html": "^2.9.0"
   }
 }

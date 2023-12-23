@@ -1,0 +1,198 @@
+<appwrite-upload-file data-postid={""} data-imageurl={""}>
+  <input type="file" id="file" accept="image/*" style="display:none" />
+  <input
+    name="imageurl"
+    style="display: none"
+    id="imageurl-input"
+    type="text"
+  />
+  <section id="upload-section">
+    <div
+      class="box is-border-dashed is-no-shadow u-padding-24"
+      style="--box-border-radius:var(--border-radius-xsmall);"
+    >
+      <div class="upload-file-box">
+        <div class="upload-file-box-image" id="upload-image-icon">
+          <span class="icon-upload" aria-hidden="true"></span>
+        </div>
+        <div class="u-min-width-0 u-text-center">
+          <h5 class="upload-file-box-title heading-level-7 u-inline">
+            <span class="is-only-desktop"
+              >Drag and drop files here to upload</span
+            >
+            <span class="is-not-desktop">Upload a File</span>
+          </h5>
+        </div>
+        <div
+          class="u-flex u-main-center u-cross-center u-gap-16 u-flex-vertical-mobile"
+        >
+          <p class="upload-file-box-info body-text-2 u-normal">
+            Max file size: 10MB
+          </p>
+          <button
+            id="upload-button"
+            type="button"
+            class="button is-secondary is-full-width-mobile"
+          >
+            <span class="text">Choose a file</span>
+          </button>
+        </div>
+        <ul
+          class="upload-file-box-list u-min-width-0"
+          id="file-details-area"
+          style="display: none"
+        >
+          <li class="u-flex u-cross-center u-min-width-0">
+            <span class="icon-document" aria-hidden="true"></span>
+            <span
+              class="upload-file-box-name u-trim u-min-width-0"
+              id="file-name"
+            >
+            </span>
+            <span
+              class="upload-file-box-size u-margin-inline-start-4 u-margin-inline-end-16"
+              id="file-size"
+            >
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section id="preview-section" style="display: none;"></section>
+</appwrite-upload-file>
+
+<script>
+  import { appwriteStorage } from "../lib/appwrite";
+  import { ID } from "appwrite";
+
+  class AppwriteUploadFile extends HTMLElement {
+    postId: string | undefined;
+    imageURL: string | undefined;
+    isImageUploading: any;
+    imageInputElement: HTMLInputElement | null =
+      this.querySelector("#imageurl-input");
+    imageLoaderElement: HTMLDivElement | null =
+      this.querySelector("#upload-image-icon");
+    fileDetailsAreaElement: HTMLUListElement | null =
+      this.querySelector("#file-details-area");
+    fileNameElement: HTMLSpanElement | null = this.querySelector("#file-name");
+    fileSizeElement: HTMLSpanElement | null = this.querySelector("#file-size");
+    uploadButtonElement: HTMLButtonElement | null =
+      this.querySelector("#upload-button");
+    fileInputElement: HTMLInputElement | null = this.querySelector("#file");
+    uploadSectionElement: HTMLElement | null =
+      this.querySelector("#upload-section");
+    previewSectionElement: HTMLElement | null =
+      this.querySelector("#preview-section");
+
+    // Used when editing, the data is set async
+    observer = new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        if (mutation.type === "attributes") {
+          this.postId = this.dataset.postid;
+          this.imageURL = this.dataset.imageurl;
+          if (
+            this.imageInputElement &&
+            this.imageURL &&
+            this.previewSectionElement &&
+            this.uploadSectionElement
+          ) {
+            this.previewSectionElement.innerHTML = "";
+
+            this.imageInputElement.value = this.imageURL;
+            const imgElem = document.createElement("img");
+            imgElem.src = this.imageURL;
+            this.previewSectionElement.appendChild(imgElem);
+            const removeButtonElem = document.createElement("button");
+            removeButtonElem.innerHTML = "Remove";
+            removeButtonElem.classList.add("button");
+            removeButtonElem.classList.add("is-secondary");
+            removeButtonElem.addEventListener("click", async (e: any) => {
+              e.preventDefault();
+              if (
+                this.imageInputElement &&
+                this.imageURL &&
+                this.previewSectionElement &&
+                this.uploadSectionElement
+              ) {
+                this.imageInputElement.value = "";
+                this.imageURL = "";
+                this.previewSectionElement.style.display = "none";
+                this.uploadSectionElement.style.display = "block";
+              }
+            });
+            this.previewSectionElement.appendChild(removeButtonElem);
+            this.previewSectionElement.style.display = "block";
+            this.uploadSectionElement.style.display = "none";
+          }
+        }
+      }
+    });
+
+    disconnectedCallback() {
+      this.observer.disconnect();
+    }
+    constructor() {
+      super();
+      this.postId = this.dataset.postid;
+      this.imageURL = this.dataset.imageurl;
+
+      //Allows for observing when the input data is set async
+      this.observer.observe(this, { attributes: true });
+
+      this.uploadButtonElement?.addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (this.fileInputElement) {
+          this.fileInputElement.click();
+        }
+      });
+
+      this.fileInputElement?.addEventListener("change", async (e: any) => {
+        if (e?.currentTarget?.files?.length) {
+          uploadHandler(e?.currentTarget?.files[0]);
+        }
+      });
+
+      const uploadHandler = async (file: any) => {
+        if (
+          !this.imageInputElement ||
+          !this.imageLoaderElement ||
+          !this.fileDetailsAreaElement ||
+          !this.fileNameElement ||
+          !this.fileSizeElement ||
+          !this.imageLoaderElement
+        )
+          return;
+
+        this.imageInputElement.value = "";
+
+        try {
+          this.imageLoaderElement.classList.add("loader");
+
+          const result = await appwriteStorage.createFile(
+            import.meta.env.PUBLIC_APPWRITE_BUCKET_ID,
+            ID.unique(),
+            file
+          );
+          this.fileDetailsAreaElement.style.display = "block";
+          this.fileNameElement.innerText = result.name;
+          this.fileSizeElement.innerText =
+            (result.sizeOriginal / 1024).toFixed(2) + " KB";
+          this.imageInputElement.value = `${
+            import.meta.env.PUBLIC_APPWRITE_ENDPOINT
+          }/storage/buckets/${
+            import.meta.env.PUBLIC_APPWRITE_BUCKET_ID
+          }/files/${result.$id}/view?project=${
+            import.meta.env.PUBLIC_APPWRITE_PROJECT_ID
+          }`;
+        } catch (err) {
+          alert(err);
+        } finally {
+          this.imageLoaderElement.classList.remove("loader");
+        }
+      };
+    }
+  }
+  customElements.define("appwrite-upload-file", AppwriteUploadFile);
+</script>

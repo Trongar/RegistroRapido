@@ -1,0 +1,41 @@
+---
+import HeaderAccount from "../components/HeaderAccount.astro";
+import ThemeSwitcher from "./ThemeSwitcher.astro";
+---
+
+<script>
+  import { atom } from "nanostores";
+
+  const isMenuOpen = atom(false);
+
+  isMenuOpen.subscribe((menuIsOpen) => {
+    const mainSideElement: HTMLDivElement | null = document.querySelector(
+      ".main-side.is-not-desktop"
+    );
+    if (mainSideElement) {
+      mainSideElement.style.display = menuIsOpen ? "block" : "none";
+    }
+  });
+
+  const navigationButton: HTMLButtonElement | null =
+    document.querySelector(".nav-btn");
+  if (navigationButton)
+    navigationButton.addEventListener("click", () => {
+      isMenuOpen.set(!isMenuOpen.get());
+    });
+</script>
+
+<header class="main-header u-padding-inline-end-0">
+  <button class="icon-button is-not-desktop nav-btn" aria-label="Open Menu">
+    <span aria-hidden="true" class="icon-menu"></span>
+  </button>
+  <a class="logo heading-level-6 u-bold" href="/">Appwrite + Astro = ❤️</a>
+  <div class="main-header-end u-margin-inline-end-16">
+    <ul class="buttons-list is-with-padding">
+      <li class="buttons-list-item u-padding-inline-0">
+        <ThemeSwitcher />
+      </li>
+    </ul>
+    <HeaderAccount />
+  </div>
+</header>
