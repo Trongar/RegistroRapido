@@ -1,13 +1,11 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import LoginWith from "./login-with.astro";
 ---
 
 <script>
-  import { login, loginWith } from "../../lib/appwrite";
+  import { login } from "../../lib/appwrite";
 
-  document.querySelector("#login-google")?.addEventListener("click", () => {
-    loginWith("google");
-  });
   const formElem: HTMLFormElement | null = document.querySelector("form");
 
   formElem?.addEventListener("submit", (e) => {
@@ -40,12 +38,7 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
 <SiteLayout>
   <section class="u-flex u-flex-vertical u-gap-16">
-    <article class="card u-flex u-flex-vertical u-gap-16">
-      <h1 class="heading-level-1">Iniciar sesión con:</h1>
-      <button class="button" id="login-google"
-        ><i class="icon-google"></i>Google</button
-      >
-    </article>
+    <LoginWith />
     <article class="card u-flex u-flex-vertical u-gap-16">
       <h1 class="heading-level-1">Iniciar sesión</h1>
       <form class="u-flex u-flex-vertical u-gap-8">

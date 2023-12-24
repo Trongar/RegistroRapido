@@ -1,6 +1,8 @@
 ---
 import HeaderAccount from "../components/HeaderAccount.astro";
 import ThemeSwitcher from "./ThemeSwitcher.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import AccountButton from "../components/header/account-btn.astro";
 ---
 
 <script>
@@ -29,11 +31,14 @@ import ThemeSwitcher from "./ThemeSwitcher.astro";
   <button class="icon-button is-not-desktop nav-btn" aria-label="Open Menu">
     <span aria-hidden="true" class="icon-menu"></span>
   </button>
-  <a class="logo heading-level-6 u-bold" href="/">Appwrite + Astro = ❤️</a>
+  <a class="logo heading-level-6 u-bold" href="/">{SITE_TITLE}</a>
   <div class="main-header-end u-margin-inline-end-16">
     <ul class="buttons-list is-with-padding">
       <li class="buttons-list-item u-padding-inline-0">
         <ThemeSwitcher />
+      </li>
+      <li class="buttons-list-item u-padding-inline-0">
+        <AccountButton />
       </li>
     </ul>
     <HeaderAccount />

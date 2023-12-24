@@ -1,0 +1,19 @@
+<script>
+  import { user$, appwriteAvatars } from "../../lib/appwrite";
+
+  const userName: HTMLDivElement | null = document.querySelector("#userName");
+  const userAvatar: HTMLImageElement | null = document.querySelector("#avatar");
+  if (userName) {
+    user$.subscribe((user) => {
+      if (user) {
+        userName.innerHTML = user.name;
+      }
+      if (user && userAvatar) {
+        const avatar = appwriteAvatars.getInitials(user.name);
+        userAvatar.src = avatar.toString();
+      }
+    });
+  }
+</script>
+<img id="avatar" class="avatar" src="https://unsplash.it/40" alt="" />
+<span id="userName" class="text"></span>

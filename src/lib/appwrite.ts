@@ -8,6 +8,7 @@ import {
   type Models,
   Teams,
   Query,
+  Avatars,
 } from "appwrite";
 import { atom } from "nanostores";
 import type { WritableAtom } from "nanostores";
@@ -127,3 +128,5 @@ export const account = async () => {
     alert(appwriteError.message);
   }
 };
+
+export const appwriteAvatars = new Avatars(appwriteClient);

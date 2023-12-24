@@ -6,7 +6,7 @@ import Footer from "../components/Footer.astro";
 import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
@@ -27,7 +27,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
     </script>
     <div class="grid-with-side" style="min-height: 100vh;">
       <Header />
-      <SideNav />
+      <!-- <SideNav /> -->
       <main class="main-content">
         <div class="container">
           <slot />

@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import LoginWith from "./login-with.astro";
 ---
 
 <script>
@@ -37,19 +38,22 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 
 <SiteLayout>
   <section class="u-flex u-flex-vertical u-gap-16">
-    <h1 class="heading-level-1">Sign Up</h1>
-    <form class="u-flex u-flex-vertical u-gap-8">
-      <label for="email"> Email</label>
-      <input id="email" type="email" required />
+    <LoginWith />
+    <article class="card u-flex u-flex-vertical u-gap-16">
+      <h1 class="heading-level-1">Sign Up</h1>
+      <form class="u-flex u-flex-vertical u-gap-8">
+        <label for="email"> Email</label>
+        <input id="email" type="email" required />
 
-      <label for="password"> Password</label>
-      <input id="password" type="password" required />
+        <label for="password"> Password</label>
+        <input id="password" type="password" required />
 
-      <button type="submit" class="button u-margin-block-start-16"
-        >Register</button
-      >
-    </form>
-    <a href="/account/login" style="text-decoration: underline">Login</a>
+        <button type="submit" class="button u-margin-block-start-16"
+          >Register</button
+        >
+      </form>
+      <a href="/account/login" style="text-decoration: underline">Login</a>
+    </article>
   </section>
 </SiteLayout>
 

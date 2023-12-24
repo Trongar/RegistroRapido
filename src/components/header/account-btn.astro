@@ -1,0 +1,85 @@
+---
+import NavLink from "../NavLink.astro";
+import AuthedBtn from "./authed-btn.astro";
+---
+
+<account-nav>
+  <div id="login">
+    <NavLink href="/account/login">
+      <span class="icon-user" aria-hidden="true"></span>
+      <span class="text">Login</span>
+    </NavLink>
+  </div>
+  <div id="account" style="width: 15em;">
+    <div class="drop-wrapper">
+      <button class="button is-text" id="account-btn">
+        <AuthedBtn />
+      </button>
+      <div
+        id="account-dropdown"
+        class="drop is-block-end is-no-arrow"
+        style="display: none;"
+      >
+        <section class="drop-section">
+          <ul class="drop-list">
+            <li class="drop-list-item">
+              <NavLink href="/account">
+                <span class="icon-user" aria-hidden="true"></span>
+                <span class="text">Mi Cuenta</span>
+              </NavLink>
+            </li>
+            <li class="drop-list-item">
+              <button class="drop-button">
+                <span class="text">Item 2</span>
+              </button>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+</account-nav>
+
+<script>
+  import { isLoggedIn } from "../../lib/appwrite";
+
+  class UserSession extends HTMLElement {
+    loginElement: HTMLElement | null;
+    accountElement: HTMLElement | null;
+
+    constructor() {
+      super();
+      this.loginElement = this.querySelector("#login");
+      this.accountElement = this.querySelector("#account");
+
+      isLoggedIn.subscribe((user) => {
+        if (!this.accountElement || !this.loginElement) return;
+        if (user) {
+          this.loginElement.style.display = "none";
+          this.accountElement.style.display = "block";
+        } else {
+          this.loginElement.style.display = "block";
+          this.accountElement.style.display = "none";
+        }
+      });
+    }
+  }
+  const AccountButton: HTMLButtonElement | null =
+    document.querySelector("#account-btn");
+  const AccountDropdown: HTMLDivElement | null =
+    document.querySelector("#account-dropdown");
+  if (AccountButton && AccountDropdown) {
+    AccountButton.addEventListener("click", () => {
+      if (AccountDropdown.style.display !== "block") {
+        AccountDropdown.style.display = "block";
+        return;
+      }
+      AccountDropdown.style.display = "none";
+      return;
+    });
+    AccountDropdown.addEventListener("click", () => {
+      AccountDropdown.style.display = "none";
+    });
+  }
+  customElements.define("account-nav", UserSession);
+</script>
