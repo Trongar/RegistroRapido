@@ -1,7 +1,7 @@
 <script lang="ts">
   import { string, object, minLength, optional, safeParse } from "valibot";
   import type { Input, Issues } from "valibot";
-  import { appwriteTeams } from "@/lib/appwrite";
+  import { appwriteDatabases, appwriteTeams } from "@/lib/appwrite";
   import { ID } from "appwrite";
 
   const NewStoreSchema = object({
@@ -25,13 +25,24 @@
       return;
     }
     if (newStore.success) {
+      console.log(newStore.output);
       appwriteTeams
         .create(ID.unique(), newStore.output.name)
         .then(async (team) => {
-          appwriteTeams.updatePrefs(team.$id, {
-            description: newStore.output.description,
-          });
-          window.location.href = `/app/${team.$id}`;
+          appwriteDatabases
+            .createDocument(
+              import.meta.env.PUBLIC_APPWRITE_STORES_DB,
+              import.meta.env.PUBLIC_APPWRITE_STORE_COLLECTION,
+              team.$id,
+              {
+                name: team.name,
+                description: newStore.output.description,
+              }
+            )
+            .then((store) => {
+              console.log(store);
+              window.location.href = `/app/${store.$id}`;
+            });
         });
     }
   };

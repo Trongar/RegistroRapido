@@ -1,9 +1,9 @@
 ---
-import SiteLayout from "../../layouts/SiteLayout.astro";
+import SiteLayout from "@layouts/SiteLayout.astro";
 ---
 
 <script>
-  import { user$, logout, appwriteAvatars } from "../../lib/appwrite";
+  import { user$, logout, appwriteAvatars } from "@lib/appwrite";
 
   const loginElement: HTMLElement | null =
     document.querySelector("#accountLoginLink");

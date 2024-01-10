@@ -61,13 +61,13 @@ isLoggedIn.subscribe(async (session) => {
   }
 });
 
-isLoggedIn.subscribe(async (session) => {
-  if (!session?.userId) return;
-  const authorsMemberships = await appwriteTeams.listMemberships("authors", [
-    Query.equal("userId", session.userId),
-  ]);
-  isAuthor.set(authorsMemberships.total > 0);
-});
+// isLoggedIn.subscribe(async (session) => {
+//   if (!session?.userId) return;
+//   const authorsMemberships = await appwriteTeams.listMemberships("authors", [
+//     Query.equal("userId", session.userId),
+//   ]);
+//   isAuthor.set(authorsMemberships.total > 0);
+// });
 
 export const login = async (email: string, password: string) => {
   try {
