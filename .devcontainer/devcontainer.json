@@ -1,5 +1,5 @@
 {
-  "name": "Bun",
+  "name": "Registra Rápido",
   "image": "ghcr.io/nhaef/devcontainer-bun:latest",
   "customizations": {
       "vscode": {
