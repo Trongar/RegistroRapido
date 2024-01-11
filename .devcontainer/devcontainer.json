@@ -1,14 +1,15 @@
 {
-  "name": "Registra Rápido",
-  "image": "ghcr.io/nhaef/devcontainer-bun:latest",
-  "customizations": {
-      "vscode": {
-          "extensions": [
-              "dbaeumer.vscode-eslint",
-              "astro-build.astro-vscode",
-              "ms-ceintl.vscode-language-pack-es",
-              "github.copilot"
-          ]
-      }
-  }
+    "name": "Registra Rápido",
+    "image": "ghcr.io/nhaef/devcontainer-bun:latest",
+    
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "dbaeumer.vscode-eslint",
+                "astro-build.astro-vscode",
+                "ms-ceintl.vscode-language-pack-es",
+                "github.copilot"
+            ]
+        }
+    }
 }
