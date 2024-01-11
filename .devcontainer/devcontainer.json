@@ -8,7 +8,8 @@
                 "dbaeumer.vscode-eslint",
                 "astro-build.astro-vscode",
                 "ms-ceintl.vscode-language-pack-es",
-                "github.copilot"
+                "github.copilot",
+                "thang-nm.catppuccin-perfect-icons"
             ]
         }
     }
