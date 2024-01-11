@@ -1,3 +1,7 @@
+```sh 
+git config --global http.sslverify false
+```
+
 # Astro Starter Kit: Minimal
 
 ```sh
