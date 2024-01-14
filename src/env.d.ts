@@ -9,3 +9,11 @@ interface ImportMetaEnv {
   interface ImportMeta {
     readonly env: ImportMetaEnv;
   }
+
+
+declare namespace App {
+  import { Models } from "appwrite";
+  interface Locals {
+    account: Models.User<Models.Preferences>;
+  }
+}
