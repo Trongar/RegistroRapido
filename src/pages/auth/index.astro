@@ -1,9 +1,18 @@
 ---
 import LayoutBase from '@layouts/base.astro'
 import LoginButton from '@islands/auth/login-button.svelte'
+
+const data = Astro.locals
+
+if (data.account) Astro.redirect('/account')
 ---
 
 <LayoutBase>
 
+    {
+        data.account
+        ? <p>Logged in as {data.account.$id}</p>
+        : <p>Not logged in</p>
+    }
     <LoginButton client:load />
 </LayoutBase>

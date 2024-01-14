@@ -1,0 +1,12 @@
+---
+import { AppwriteProject } from "@lib/appwrite";
+
+ const sessionNames = [
+      "a_session_" + AppwriteProject.toLowerCase(),
+      "a_session_" + AppwriteProject.toLowerCase() + "_legacy",
+    ];
+sessionNames.forEach((sessionName) => {
+    Astro.cookies.delete(sessionName);
+    });
+    Astro.redirect("/");
+---

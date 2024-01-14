@@ -1,0 +1,12 @@
+---
+
+import LayoutBase from "@layouts/base.astro"
+import { AppwriteService } from "@lib/appwrite";
+
+
+AppwriteService.signOut()
+
+
+Astro.redirect('/login')
+
+---

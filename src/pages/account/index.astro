@@ -1,0 +1,14 @@
+---
+import LayoutBase from '@layouts/base.astro';
+import LauoutAuth from '@layouts/auth.astro';
+
+const data = Astro.locals.account;
+---
+
+<LayoutBase>
+    <LauoutAuth/>
+    <h1>Cuenta</h1>
+    {Object.keys(data).map((key) => (
+        <p>{key}: {data[key]}</p>
+    ))}
+</LayoutBase>
