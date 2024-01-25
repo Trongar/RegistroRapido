@@ -1,0 +1,37 @@
+---
+import LayoutBase from '@layouts/base.astro'
+import LayoutAuth from '@layouts/auth.astro'
+
+import { AppwriteService } from '@lib/appwrite'
+import { Query } from 'appwrite'
+
+const {storeid} = Astro.params
+
+const members = await AppwriteService.getTeamMembers(storeid)
+const products = await AppwriteService.getDocuments(
+  import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
+  import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
+  [
+    Query.equal('storeId', storeid),
+  ]
+)
+---
+  <LayoutBase>
+    <LayoutAuth/>
+
+    <h1>Miembros</h1>
+    {members.memberships.map((member) => (
+      <div>
+        <p>{member.$id} - {member.roles}</p>
+      </div>
+    ))}
+    <h1>Productos</h1>
+    {products.documents.map((product) => (
+      <div>
+        <p>{product.$id} - {product.name}  </p>
+        {JSON.stringify(product, null, 2)}
+      </div>
+    ))}
+
+    
+  </LayoutBase>

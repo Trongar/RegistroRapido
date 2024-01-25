@@ -4,6 +4,10 @@ interface ImportMetaEnv {
     readonly PUBLIC_APPWRITE_ENDPOINT: string;
     readonly PUBLIC_APPWRITE_PROJECT: string;
     readonly APPWRITE_KEY: string;
+
+    readonly PUBLIC_APPWRITE_DATABASE_STORES: string;
+    readonly PUBLIC_APPWRITE_COLLECTION_STORE: string;
+    readonly PUBLIC_APPWRITE_COLLECTION_PRODUCT: string;
   }
   
   interface ImportMeta {

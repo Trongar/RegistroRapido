@@ -1,12 +1,16 @@
 ---
 import LayoutBase from "@layouts/base.astro";
+import LayoutAuth from "@layouts/auth.astro";
 ---
 
 <LayoutBase>
+	<LayoutAuth />
 	<h1>Sistemas</h1>
 
 	<ul>
 		<li><a href="/auth"> Autenticación</a></li>
+		<li><a href="/account"> Cuenta</a></li>
+		<li><a href="/stores">Tiendas</a></li>
 	</ul>
 
 </LayoutBase>

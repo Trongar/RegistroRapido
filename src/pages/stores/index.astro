@@ -1,0 +1,29 @@
+---
+import Layoutbase from "@layouts/base.astro";
+import LayoutAuth from "@layouts/auth.astro";
+import { AppwriteService } from "@lib/appwrite";
+import CreateStore from "@islands/stores/create-store.svelte"
+
+const data = await AppwriteService.getTeams();
+---
+
+<Layoutbase>
+    <LayoutAuth />
+    <h1>Mis equipos</h1>
+    <ul>
+        {
+            data.teams.length === 0 && (
+                <li>No tienes equipos</li>
+            )
+        }
+        {
+            data.teams.map((team) => (
+                <li>
+                    <a href={`/stores/${team.$id}`}>{team.name}</a>
+                </li>
+            ))
+        }
+        
+    </ul>
+    <CreateStore client:load />
+</Layoutbase>
