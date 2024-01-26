@@ -2,6 +2,9 @@
 import LayoutBase from '@layouts/base.astro'
 import LayoutAuth from '@layouts/auth.astro'
 
+import ProductsTable from '@components/tables/products.astro'
+import ButtonNewProduct from '@components/buttons/new-product.astro'
+
 import { AppwriteService } from '@lib/appwrite'
 import { Query } from 'appwrite'
 
@@ -26,12 +29,8 @@ const products = await AppwriteService.getDocuments(
       </div>
     ))}
     <h1>Productos</h1>
-    {products.documents.map((product) => (
-      <div>
-        <p>{product.$id} - {product.name}  </p>
-        {JSON.stringify(product, null, 2)}
-      </div>
-    ))}
-
+    
+    <ProductsTable products={products}/>
+    <ButtonNewProduct storeId={storeid}/>
     
   </LayoutBase>
