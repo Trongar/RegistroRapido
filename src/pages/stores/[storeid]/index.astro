@@ -30,7 +30,7 @@ const products = await AppwriteService.getDocuments(
     ))}
     <h1>Productos</h1>
     
-    <ProductsTable products={products}/>
     <ButtonNewProduct storeId={storeid}/>
+    <ProductsTable products={products}/>
     
   </LayoutBase>

@@ -1,22 +1,22 @@
-import { object, string, minLength, number, minValue, array, date, any } from 'valibot';
+import type { Models } from 'appwrite';
+import type { Output } from 'valibot'
 
-// export const storeFormSchema = object({
-//     id: string([minLength(1, 'El id es requerido.'),]),
-//     name: string([minLength(1, 'El nombre es requerido.'),]),
-//     description: string([minLength(1, 'La descripción es requerida.'),]),
-// });
+import { object, string, number, minValue, array, date } from 'valibot';
+
 
 export const productDocumentSchema = object({
     "name": string(), 
     "description": string(), 
     "price": number([minValue(0)]), 
-    "cuantity": number([minValue(0)]), 
-    "image": array(string()), 
+    "quantity": number([minValue(0)]), 
+    "image": string(), 
     "storeId": string(), 
     "$id": string(), 
-    "$createdAt": date(), 
-    "$updatedAt": date(), 
-    "$permissions": array(any()), 
     "$collectionId": string(), 
     "$databaseId": string(), 
+    "$createdAt": date(), 
+    "$updatedAt": date(), 
+    "$permissions": array(string()), 
+    
 });
+export type Product = Output<typeof productDocumentSchema> & Models.Document

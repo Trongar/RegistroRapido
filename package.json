@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "bunx --bun astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -20,6 +20,7 @@
     "astro": "^4.1.1",
     "flowbite": "^2.2.1",
     "flowbite-svelte": "^0.44.22",
+    "nanostores": "^0.9.5",
     "node-appwrite": "^11.1.0",
     "svelte": "^4.2.8",
     "svelte-forms-lib": "^2.0.1",
