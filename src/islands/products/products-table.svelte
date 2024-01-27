@@ -7,15 +7,10 @@
     export let products: Product[];
 
     setProducts(products)
-
-    productsStore.subscribe((value) => {
-        products = value as Product[]
-    })
     
 
     let searchTerm = '';
-    let items = products;
-    $: filteredItems = items.filter((item) => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
+    $: filteredItems = $productsStore.filter((item) => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   </script>
   
   <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchTerm}>
