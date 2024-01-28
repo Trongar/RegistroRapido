@@ -1,18 +1,27 @@
 ---
-import LogoutBtn from "@islands/auth/logout-btn.svelte"
-const data = Astro.locals
+const data = Astro.locals;
 
-const displayName = data.account?.name || data.account?.email || data.account?.username || 'Anonimo'
-
-
-
+const displayName =
+    data.account?.name ||
+    data.account?.email ||
+    data.account?.username ||
+    "Anonimo";
 ---
 
-{!data.account &&
-    <p>No has iniciado sessio</p> <a href="/auth">Iniciar Session</a>
+{
+    !data.account && (
+        <>
+            <p>No has iniciado sessio</p>
+            <a href="/auth">Iniciar Session</a>
+        </>
+    )
 }
 
-{data.account &&
-    <p>Has iniciado sessio como: {displayName}</p>   <LogoutBtn client:load />
+{
+    data.account && (
+        <>
+            <p>Has iniciado sessio como: {displayName}</p>
+            <a href="/account/signout">Sign Out</a>
+        </>
+    )
 }
-

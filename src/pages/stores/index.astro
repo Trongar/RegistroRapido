@@ -1,8 +1,8 @@
 ---
-import Layoutbase from "@layouts/base.astro";
+import CreateStore from "@islands/forms/create-store.svelte";
 import LayoutAuth from "@layouts/auth.astro";
+import Layoutbase from "@layouts/base.astro";
 import { AppwriteService } from "@lib/appwrite";
-import CreateStore from "@islands/stores/create-store.svelte"
 
 const data = await AppwriteService.getTeams();
 ---
@@ -11,11 +11,7 @@ const data = await AppwriteService.getTeams();
     <LayoutAuth />
     <h1>Mis equipos</h1>
     <ul>
-        {
-            data.teams.length === 0 && (
-                <li>No tienes equipos</li>
-            )
-        }
+        {data.teams.length === 0 && <li>No tienes equipos</li>}
         {
             data.teams.map((team) => (
                 <li>
@@ -23,7 +19,6 @@ const data = await AppwriteService.getTeams();
                 </li>
             ))
         }
-        
     </ul>
     <CreateStore client:load />
 </Layoutbase>

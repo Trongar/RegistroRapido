@@ -1,18 +1,31 @@
 ---
-import LayoutBase from '@layouts/base.astro'
-import LoginButton from '@islands/auth/login-button.svelte'
+import LayoutBase from "@layouts/base.astro";
 
-const data = Astro.locals
+const data = Astro.locals;
 
-if (data.account) Astro.redirect('/account')
+if (data.account) Astro.redirect("/account");
 ---
 
 <LayoutBase>
-
     {
-        data.account
-        ? <p>Logged in as {data.account.$id}</p>
-        : <p>Not logged in</p>
+        data.account ? (
+            <p>Logged in as {data.account.$id}</p>
+        ) : (
+            <p>Not logged in</p>
+        )
     }
-    <LoginButton client:load />
+    <button id="login">Login</button>
 </LayoutBase>
+
+<script>
+    const login = async () => {
+        fetch("/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: "",
+        }).then(() => (window.location.href = "/account"));
+    };
+    document.querySelector("#login")?.addEventListener("click", login);
+</script>
