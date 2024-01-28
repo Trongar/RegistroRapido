@@ -14,14 +14,19 @@ export const addToCart = (product: Product) => {
         quantity: 1
     }])
 }
-export const getCartItemIndex = (productId: string) =>
+export const quitCartItem = (index: number) =>
+    shoppingCart.get().filter((_, itemIndex) => itemIndex !== index)
+
+export const getCartItemIndex = (id: string) =>
     shoppingCart.get().findIndex(
-        entry => entry.product.$id === productId
+        entry => entry.product.$id === id
     )
 export const updateCartItem = (index: number, product: Product) => {
+    const quantity = (shoppingCart.get()[index].quantity + 1) % (shoppingCart.get()[index].product.quantity + 1)
+    if (quantity === 0) return quitCartItem(index)
     return shoppingCart.get().with(index, {
         product,
-        quantity: shoppingCart.get()[index].quantity + 1
+        quantity
 
     })
 }
@@ -31,3 +36,5 @@ export const setInCartQuantity = (index: number, quantity: number) => {
         quantity
     }))
 }
+export const getInCartItem = (id: string) =>
+    shoppingCart.get().find(item => item.product.$id === id)

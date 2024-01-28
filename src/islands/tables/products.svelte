@@ -3,9 +3,15 @@
 
   import type { Product } from "@schemas/product";
   import { products as productsStore, setProducts } from "@stores/products";
-  import { addToCart, shoppingCart } from "@stores/shopping-cards";
+  import {
+    addToCart,
+    getCartItemIndex,
+    quitCartItem,
+    shoppingCart,
+  } from "@stores/shopping-cards";
   import {
     Button,
+    Checkbox,
     TableBody,
     TableBodyCell,
     TableBodyRow,
@@ -17,16 +23,17 @@
   setProducts(products);
 
   let searchTerm = "";
-  $: filteredItems = $productsStore.filter(
-    (item) => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1,
-  );
+  $: filteredItems = $productsStore
+    .filter((item) => item.quantity > 0)
+    .filter(
+      (item) =>
+        item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1,
+    );
 
   const addToCartBtn = (product: Product) => {
     addToCart(product);
   };
 </script>
-
-{JSON.stringify($shoppingCart)}
 
 <TableSearch
   placeholder="Search by maker name"
@@ -36,6 +43,9 @@
 >
   <slot name="head-controls" slot="header" />
   <TableHead>
+    <TableBodyCell class="!p-4">
+      <Checkbox disabled />
+    </TableBodyCell>
     <TableHeadCell>Imagen</TableHeadCell>
     <TableHeadCell>Nombre</TableHeadCell>
     <TableHeadCell>Cantidad</TableHeadCell>
@@ -45,6 +55,15 @@
   <TableBody>
     {#each filteredItems as item}
       <TableBodyRow>
+        <TableBodyCell class="!p-4 flex gap-4">
+          <Checkbox
+            disabled
+            checked={Boolean(
+              $shoppingCart[getCartItemIndex(item.$id)]?.quantity,
+            )}
+          />
+          {$shoppingCart[getCartItemIndex(item.$id)]?.quantity ?? 0}
+        </TableBodyCell>
         <TableBodyCell>
           <img
             src={item.image}
@@ -56,7 +75,15 @@
         <TableBodyCell>{item.quantity}</TableBodyCell>
         <TableBodyCell>{item.price}</TableBodyCell>
         <TableBodyCell>
-          <Button on:click={() => addToCartBtn(item)}>Añadir</Button>
+          <Button color="blue" on:click={() => addToCartBtn(item)}
+            >Añadir</Button
+          >
+          <Button
+            color="red"
+            on:click={() =>
+              shoppingCart.set(quitCartItem(getCartItemIndex(item.$id)))}
+            >Quitar</Button
+          >
         </TableBodyCell>
       </TableBodyRow>
     {/each}
