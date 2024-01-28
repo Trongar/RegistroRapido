@@ -31,7 +31,6 @@
 
         },
         onSubmit: async (values) => {
-            console.log(values);
             const formData = new FormData();
             Object.entries(values).forEach(([key, value]:[key:string, value:string]) => {
                 formData.append(key, value);
@@ -40,7 +39,6 @@
                 method: "POST",
                 body: formData,
             }).then( (value:any) => {
-                console.log(value);
                 window.location.href = "/stores/" + initialValues.id;
             });
         },

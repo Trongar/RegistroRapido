@@ -7,7 +7,7 @@
     import { createForm } from "node_modules/svelte-forms-lib/lib";
     import { addProduct } from "@stores/products"
     
-    // export let storeId;
+    export let storeId;
     
     const initialValues: Output<typeof productFormSchema> = {
         name: undefined,
@@ -34,28 +34,19 @@
             const formData = new FormData();
             Object.entries(values).forEach(([key, value]:[key:string, value:string]) => {
                 formData.append(key, value);
-                // formData.append("storeId", storeId)
+                formData.append("storeId", storeId)
             });
-            addProduct({
-                ...values,
-                $collectionId: "",
-                $createdAt: "",
-                $databaseId: "",
-                $id: "",
-                $permissions: [""],
-                $updatedAt: ""
-            })
-            // await fetch("/stores/create", {
-            //     method: "POST",
-            //     body: formData,
-            // }).then( (value:any) => {
-            //     console.log(value);
-            // });
+            await fetch(`/stores/${storeId}/new-product`, {
+                method: "POST",
+                body: formData,
+            }).then( () => {
+                window.location.reload()
+            });
         },
         
     })
 </script>
-{JSON.stringify($errors)}
+{JSON.stringify($form)}
 <form class="p-4 md:p-5" on:submit|preventDefault={handleSubmit}>
     <div class="grid gap-4 mb-4 grid-cols-2">
         <Label class="col-span-2 block mb-2 text-sm font-medium text-gray-900 dark:text-white">

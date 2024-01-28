@@ -44,7 +44,6 @@ export const POST: APIRoute = async ({ cookies }) => {
   );
 
   for (const cookie of cookiesParsed) {
-    console.log(cookie.name);
 
     cookies.set(cookie.name, cookie.value, {
       domain: cookie.domain,

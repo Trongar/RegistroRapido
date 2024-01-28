@@ -15,5 +15,8 @@ const products = productsProp.documents as Product[];
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg max-w-screen-md">
   
-  <ProductsTable {products} client:load  />
+  <ProductsTable {products} client:load >
+  
+    <slot name="head-controls" slot="head-controls" />
+  </ProductsTable>
 </div>

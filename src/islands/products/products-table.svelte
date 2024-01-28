@@ -13,7 +13,8 @@
     $: filteredItems = $productsStore.filter((item) => item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1);
   </script>
   
-  <TableSearch placeholder="Search by maker name" hoverable={true} bind:inputValue={searchTerm}>
+  <TableSearch placeholder="Search by maker name" innerDivClass="flex justify-between" hoverable={true} bind:inputValue={searchTerm}>
+    <slot name="head-controls" slot="header" />
     <TableHead>
       <TableHeadCell>Imagen</TableHeadCell>
       <TableHeadCell>Nombre</TableHeadCell>

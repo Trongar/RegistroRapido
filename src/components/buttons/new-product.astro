@@ -4,6 +4,8 @@ interface Props {
 }
 
 import NewProductForm from '@islands/forms/new-product.svelte'
+
+const {storeId} = Astro.props
 ---
 
 <!-- Modal toggle -->
@@ -68,7 +70,7 @@ import NewProductForm from '@islands/forms/new-product.svelte'
         </button>
       </div>
       <!-- Modal body -->
-      <NewProductForm client:load />
+      <NewProductForm {storeId} client:only="svelte" />
     </div>
   </div>
 </div>
