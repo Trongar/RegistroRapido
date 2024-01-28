@@ -1,13 +1,13 @@
-import type { Models } from "appwrite";
-import {atom} from "nanostores"
+import type { Product } from "@schemas/product";
+import { atom } from "nanostores";
 
 
-export const products = atom< Models.Document[]>([])
+export const products = atom<Product[]>([])
 
 
-export const addProduct = (productItem: Models.Document) => {
+export const addProduct = (productItem: Product) => {
     products.set([...products.get(), productItem])
 }
-export const setProducts = (productsArr: Models.Document[]) => {
+export const setProducts = (productsArr: Product[]) => {
     products.set(productsArr)
 }

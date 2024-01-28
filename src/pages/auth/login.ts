@@ -1,12 +1,12 @@
-import * as setCookie from "set-cookie-parser";
 import {
   AppwriteEndpoint,
-  SsrHostname,
   AppwriteHostname,
   AppwriteProject,
+  SsrHostname,
 } from "@lib/appwrite";
+import * as setCookie from "set-cookie-parser";
 
-import type { APIRoute } from "astro"
+import type { APIRoute, AstroCookieSetOptions } from "astro";
 
 
 export const POST: APIRoute = async ({ cookies }) => {
@@ -48,7 +48,7 @@ export const POST: APIRoute = async ({ cookies }) => {
     cookies.set(cookie.name, cookie.value, {
       domain: cookie.domain,
       secure: cookie.secure,
-      sameSite: cookie.sameSite,
+      sameSite: cookie.sameSite as AstroCookieSetOptions["sameSite"],
       path: cookie.path,
       maxAge: cookie.maxAge,
       httpOnly: cookie.httpOnly,
@@ -56,5 +56,5 @@ export const POST: APIRoute = async ({ cookies }) => {
     });
   }
 
-  return new Response(JSON.stringify({json}))
+  return new Response(JSON.stringify({ json }))
 }

@@ -16,6 +16,7 @@
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.4",
     "@fontsource-variable/heebo": "^5.0.16",
+    "@types/set-cookie-parser": "^2.4.7",
     "appwrite": "^13.0.1",
     "astro": "^4.1.1",
     "flowbite": "^2.2.1",

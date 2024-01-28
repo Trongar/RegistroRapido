@@ -1,7 +1,7 @@
-import { Account, Avatars, Client, Databases, ID, Query, Teams } from "appwrite";
+import { Account, Avatars, Client, Databases, ID, Teams } from "appwrite";
 
-export const SsrHostname:string = "localhost";
-export const AppwriteHostname:string = "appwrite.trongar.site";
+export const SsrHostname: string = "localhost";
+export const AppwriteHostname: string = "appwrite.trongar.site";
 
 export const AppwriteEndpoint = import.meta.env.PUBLIC_APPWRITE_ENDPOINT;
 export const AppwriteProject = import.meta.env.PUBLIC_APPWRITE_PROJECT;
@@ -22,34 +22,34 @@ export const AppwriteService = {
   getAccount: async () => {
     return await account.get();
   },
-  getAccountPicture: (name:string) => {
+  getAccountPicture: (name: string) => {
     return avatars
       .getInitials(name.split("").reverse().join(""), 256, 256)
       .toString();
   },
-  setSession: (hash:string) => {
+  setSession: (hash: string) => {
     const authCookies = {};
     authCookies["a_session_" + AppwriteProject] = hash;
     client.headers["X-Fallback-Cookies"] = JSON.stringify(authCookies);
   },
-  createID:  () => {
+  createID: () => {
     return ID.unique();
   },
   getTeams: async () => {
     return await teams.list();
   },
-  createTeam: async (id:string, name:string) => {
+  createTeam: async (id: string, name: string) => {
     return await teams.create(id, name);
   },
-  getTeamMembers: async (teamId:string) => {
+  getTeamMembers: async (teamId: string) => {
     return await teams.listMemberships(teamId);
   },
-  createDocument: async (databaseId:string, collectionId:string, documentId:string, data: object) => {
+  createDocument: async (databaseId: string, collectionId: string, documentId: string, data: object) => {
     return await databases.createDocument(databaseId, collectionId, documentId, data)
   },
-  getDocuments: async (databaseId:string, collectionId:string, filters?: Array<string>) => {
-    return await databases.listDocuments(databaseId, collectionId, 
-    filters
+  getDocuments: async (databaseId: string, collectionId: string, filters?: Array<string>) => {
+    return await databases.listDocuments(databaseId, collectionId,
+      filters
     );
   }
 };
