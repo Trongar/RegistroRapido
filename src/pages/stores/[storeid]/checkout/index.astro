@@ -1,0 +1,19 @@
+---
+import LayoutAuth from "@layouts/auth.astro";
+import LayoutBase from "@layouts/base.astro";
+
+import CheckoutTable from "@components/tables/checkout.astro";
+import { AppwriteService } from "@lib/appwrite";
+
+const { storeid } = Astro.params;
+
+const members = await AppwriteService.getTeamMembers(storeid);
+---
+
+<LayoutBase>
+    <LayoutAuth />
+
+    <h1>Resumen</h1>
+
+    <CheckoutTable />
+</LayoutBase>

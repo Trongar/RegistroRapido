@@ -1,8 +1,11 @@
+import { persistentAtom } from "@nanostores/persistent"
 import type { Product } from "@schemas/product"
-import { atom } from "nanostores"
 
 
-export const shoppingCart = atom<{ product: Product, quantity: number }[]>([])
+export const shoppingCart = persistentAtom<{ product: Product, quantity: number, storeId: string }[]>("cart", [], {
+    encode: JSON.stringify,
+    decode: JSON.parse
+})
 
 export const addToCart = (product: Product) => {
 
@@ -11,7 +14,8 @@ export const addToCart = (product: Product) => {
     }
     shoppingCart.set([...shoppingCart.get(), {
         product,
-        quantity: 1
+        quantity: 1,
+        storeId: product.storeId
     }])
 }
 export const quitCartItem = (index: number) =>
@@ -26,14 +30,15 @@ export const updateCartItem = (index: number, product: Product) => {
     if (quantity === 0) return quitCartItem(index)
     return shoppingCart.get().with(index, {
         product,
-        quantity
-
+        quantity,
+        storeId: product.storeId
     })
 }
 export const setInCartQuantity = (index: number, quantity: number) => {
     shoppingCart.set(shoppingCart.get().with(index, {
         product: shoppingCart.get()[index].product,
-        quantity
+        quantity,
+        storeId: shoppingCart.get()[index].product.storeId
     }))
 }
 export const getInCartItem = (id: string) =>

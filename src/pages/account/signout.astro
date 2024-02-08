@@ -1,7 +1,9 @@
 ---
 import { AppwriteService } from "@lib/appwrite";
 
-AppwriteService.signOut();
-
-Astro.redirect("/login");
+await AppwriteService.signOut();
 ---
+
+<script>
+    window.location.href = "/auth";
+</script>

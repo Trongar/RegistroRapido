@@ -1,0 +1,25 @@
+---
+import LayoutAuth from "@layouts/auth.astro";
+import LayoutBase from "@layouts/base.astro";
+
+import { AppwriteService } from "@lib/appwrite";
+
+const { storeid } = Astro.params;
+
+const members = await AppwriteService.getTeamMembers(storeid);
+---
+
+<LayoutBase>
+    <LayoutAuth />
+
+    <h1>Miembros</h1>
+    {
+        members.memberships.map((member) => (
+            <div>
+                <p>
+                    {member.$id} - {member.roles}
+                </p>
+            </div>
+        ))
+    }
+</LayoutBase>

@@ -1,6 +1,7 @@
 ---
-import '@fontsource-variable/heebo';
-import 'flowbite'
+import "@fontsource-variable/heebo";
+
+import NavBarLayout from "./navbar.astro";
 ---
 
 <html lang="en">
@@ -12,12 +13,15 @@ import 'flowbite'
 		<title>Astro</title>
 	</head>
 	<body>
+		<!-- <NavBarLayout /> -->
 		<slot />
 	</body>
 </html>
-
+<script>
+	import "flowbite";
+</script>
 <style>
 	body {
-  font-family: 'Heebo Variable', sans-serif;
-}
+		font-family: "Heebo Variable", sans-serif;
+	}
 </style>

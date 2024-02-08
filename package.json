@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "bunx --bun astro dev",
+    "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
@@ -16,9 +16,14 @@
     "@astrojs/tailwind": "^5.1.0",
     "@astrojs/vercel": "^6.1.4",
     "@fontsource-variable/heebo": "^5.0.16",
+    "@nanostores/persistent": "^0.9.1",
     "@types/set-cookie-parser": "^2.4.7",
+    "@typescript-eslint/parser": "^6.21.0",
     "appwrite": "^13.0.1",
     "astro": "^4.1.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-astro": "^0.31.4",
+    "eslint-plugin-html": "^7.1.0",
     "flowbite": "^2.2.1",
     "flowbite-svelte": "^0.44.22",
     "nanostores": "^0.9.5",
@@ -31,6 +36,7 @@
   },
   "devDependencies": {
     "@astrojs/ts-plugin": "^1.4.0",
-    "@types/bun": "^1.0.1"
+    "@types/bun": "^1.0.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0"
   }
 }

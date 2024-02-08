@@ -1,23 +1,23 @@
 import { defineMiddleware } from "astro:middleware";
 export const protectedRoutes = defineMiddleware(
-  async (context, next) =>{
+  async (context, next) => {
     // context.url.pathname
     // make a middleware that checks the url and if it is a protected route, it checks if the user is logged in
     // if the user is logged in, it continues
     const publicRoutes = [
-        "/",
-        "/auth",
-        "/auth/login",
+      "/",
+      "/auth",
+      "/auth/login/email",
     ];
 
     const url = context.url.pathname;
 
     if (publicRoutes.includes(url)) {
-        return next();
+      return next();
     }
 
     if (context.locals.account) {
-        return next();
+      return next();
     }
 
     return Response.redirect(new URL("/auth", context.url), 302);
