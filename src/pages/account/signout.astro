@@ -1,9 +1,13 @@
 ---
 import { AppwriteService } from "@lib/appwrite";
 
+import LayoutBase from "@layouts/base.astro";
+
 await AppwriteService.signOut();
 ---
 
+<LayoutBase>espera 5 seg...</LayoutBase>
+
 <script>
-    window.location.href = "/auth";
+    setTimeout(() => (window.location.href = "/auth"), 5000);
 </script>
