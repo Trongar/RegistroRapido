@@ -1,4 +1,4 @@
-import { minLength, object, optional, string } from 'valibot';
+import { minLength, object, optional, string, value } from 'valibot';
 
 export const storeFormSchema = object({
     id: optional(string()),
@@ -6,3 +6,6 @@ export const storeFormSchema = object({
     description: string([minLength(1, 'La descripción es requerida.'),]),
 });
 
+export const deleteFormSchema = (name: string) => object({
+    name: string([value(name, 'El nombre no coincide')])
+})

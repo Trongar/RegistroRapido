@@ -71,7 +71,6 @@ export const AppwriteService = {
   },
   getStores: async () => {
     const teamsIds = (await AppwriteService.getTeams()).teams.map(team => team.$id)
-    console.log(teamsIds)
     return await AppwriteService.getDocuments(
       import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
       import.meta.env.PUBLIC_APPWRITE_COLLECTION_STORE,
