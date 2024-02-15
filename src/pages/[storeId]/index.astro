@@ -5,6 +5,8 @@ import LayoutNavbar from "@layouts/navbar.astro";
 import ModalDeleteStore from "@components/modals/delete-store.astro";
 import ModalEditStore from "@components/modals/edit-store.astro";
 
+import TableProducts from "@components/tables/products.astro";
+
 const { storeId } = Astro.params;
 ---
 
@@ -19,18 +21,6 @@ const { storeId } = Astro.params;
     >
         Eliminar tienda
     </button>
-    <!-- <script define:vars={{ storeId }}>
-        const deleteBTN = document.querySelector("[data-delete-store]");
-        deleteBTN.addEventListener("click", async () => {
-            const formData = new FormData();
-            formData.append("id", storeId);
-            await fetch("/api/stores", {
-                method: "DELETE",
-                body: formData,
-            });
-            window.location.href = "dashboard";
-        });
-    </script> -->
     <ModalDeleteStore />
 
     <button
@@ -40,4 +30,5 @@ const { storeId } = Astro.params;
         data-modal-toggle={`edit-store-moda-${storeId}`}>Editar tienda</button
     >
     <ModalEditStore />
+    <TableProducts />
 </LayoutBase>

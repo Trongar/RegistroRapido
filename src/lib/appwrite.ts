@@ -1,3 +1,4 @@
+import type { productFormSchema } from "@schemas/product";
 import type { storeFormSchema } from "@schemas/store";
 import { Account, Avatars, Client, Databases, ID, Query, Teams } from "appwrite";
 import type { Output } from "valibot";
@@ -90,6 +91,14 @@ export const AppwriteService = {
     await AppwriteService.updateDocument(
       import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
       import.meta.env.PUBLIC_APPWRITE_COLLECTION_STORE,
+      id,
+      data
+    )
+  },
+  createProduct: async (id: string, data: Output<typeof productFormSchema>) => {
+    await AppwriteService.createDocument(
+      import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
+      import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
       id,
       data
     )
