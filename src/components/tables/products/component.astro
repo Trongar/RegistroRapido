@@ -1,0 +1,43 @@
+---
+import DrawerEditProduct from "@components/drawers/edit-product.astro";
+import DrawerPreviewProduct from "@components/drawers/preview-product.astro";
+import ModalAddProduct from "@components/modals/add-product.astro";
+import ModalDeleteProduct from "@components/modals/delete-product.astro";
+import TableProductsEntries from "@components/tables/products/entries.astro";
+import TableProductsFilters from "@components/tables/products/filters.astro";
+import TableProductsHead from "@components/tables/products/head.astro";
+import TableProductsPageSelector from "@components/tables/products/page-selector.astro";
+import { AppwriteService } from "@lib/appwrite";
+const { page = "1" } = Astro.params;
+const limit = 10;
+const offset = Number(page) * limit - (limit - 1);
+const products = await AppwriteService.getProducts(offset - 1, limit);
+---
+
+<!-- Start block -->
+<section class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5 antialiased">
+    <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
+        <div
+            class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden"
+        >
+            <TableProductsHead totalProduct={products.total} {limit} {offset} />
+            <TableProductsFilters />
+            <div class="overflow-x-auto">
+                <TableProductsEntries {products} />
+
+                <TableProductsPageSelector
+                    page={parseInt(page, 10)}
+                    totalProduct={products.total}
+                    {limit}
+                    {offset}
+                />
+            </div>
+        </div>
+    </div>
+</section>
+<!-- End block -->
+
+<ModalAddProduct />
+<ModalDeleteProduct />
+<DrawerPreviewProduct />
+<DrawerEditProduct />

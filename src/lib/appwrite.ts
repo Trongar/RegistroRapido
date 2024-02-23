@@ -102,6 +102,23 @@ export const AppwriteService = {
       id,
       data
     )
+  },
+  getProducts: async (offset = 0, limit = 10) => {
+    return await AppwriteService.getDocuments(
+      import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
+      import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
+      [
+        Query.offset(offset),
+        Query.limit(limit),
+      ]
+    )
+  },
+  deleteProduct: async (id: string) => {
+    return await AppwriteService.deleteDocument(
+      import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
+      import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
+      id,
+    );
   }
 
 };

@@ -14,27 +14,7 @@ export const productDocumentSchema = object({
     ]),
     "price": transform(
         string("Debe ser un numero"),
-        (input) => {
-            // Eliminar caracteres no numéricos y convertir la coma en punto decimal
-            const cleanedString = input.replace(/[^0-9,.]/g, '').replace(',', '.');
-
-            // Separar la parte entera y la parte decimal
-            const partes = cleanedString.split('.');
-            let parteEntera = partes[0];
-            let parteDecimal = partes[1] || '';
-
-            // Eliminar ceros a la izquierda en la parte entera
-            parteEntera = parteEntera.replace(/^0+/, '');
-
-            // Redondear la parte decimal a dos decimales
-            parteDecimal = parteDecimal.slice(0, 2);
-
-            // Unir parte entera y parte decimal
-            const numeroFinalString = parteEntera + (parteDecimal.length > 0 ? + parteDecimal : '00');
-
-            // Convertir a número y retornar
-            return Number(numeroFinalString);
-        },
+        (input) => Number(input) * 100,
         number([
             minValue(0, "El producto no pude costar menos de 0.00")
         ])),
