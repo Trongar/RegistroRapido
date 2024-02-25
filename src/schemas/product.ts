@@ -1,7 +1,7 @@
 import type { Models } from 'appwrite';
 import type { Output } from 'valibot';
 
-import { any, minLength, minValue, number, object, omit, optional, string, transform } from 'valibot';
+import { minLength, minValue, number, object, optional, string, transform, url } from 'valibot';
 
 
 export const productDocumentSchema = object({
@@ -25,12 +25,14 @@ export const productDocumentSchema = object({
             minValue(1, "Debes tener almenos 1 elemento en existencia"
             )])
     ),
-    "image": optional(any()),
+    "image": optional(string([
+        url()
+    ])),
     "storeId": string(),
-    "$id": string(),
+    "$id": optional(string()),
 });
 
-export const productFormSchema = omit(productDocumentSchema, ["$id"])
+export const productFormSchema = productDocumentSchema
 
 
 export type Product = Output<typeof productDocumentSchema> & Models.Document

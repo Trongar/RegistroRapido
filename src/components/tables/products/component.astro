@@ -1,6 +1,6 @@
 ---
-import DrawerEditProduct from "@components/drawers/edit-product.astro";
-import DrawerPreviewProduct from "@components/drawers/preview-product.astro";
+import DrawerEditProduct from "@components/drawers/product-edit.astro";
+import DrawerProductPreview from "@components/drawers/product-preview.astro";
 import ModalAddProduct from "@components/modals/add-product.astro";
 import ModalDeleteProduct from "@components/modals/delete-product.astro";
 import TableProductsEntries from "@components/tables/products/entries.astro";
@@ -39,5 +39,5 @@ const products = await AppwriteService.getProducts(offset - 1, limit);
 
 <ModalAddProduct />
 <ModalDeleteProduct />
-<DrawerPreviewProduct />
-<DrawerEditProduct />
+<DrawerProductPreview {products} />
+<DrawerEditProduct {products} />

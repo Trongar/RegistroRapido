@@ -135,6 +135,15 @@ export const AppwriteService = {
       import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
       id,
     );
-  }
+  },
+
+  updateProduct: async (id: string, data: Output<typeof productFormSchema>) => {
+    await AppwriteService.updateDocument(
+      import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
+      import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
+      id,
+      data
+    )
+  },
 
 };
