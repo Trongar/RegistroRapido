@@ -3,8 +3,8 @@ import type { storeFormSchema } from "@schemas/store";
 import { Account, Avatars, Client, Databases, ID, Query, Teams, type Models } from "appwrite";
 import type { Output } from "valibot";
 
-export const SsrHostname: string = "localhost";
-export const AppwriteHostname: string = "appwrite.trongar.site";
+export const SsrHostname: string = import.meta.env.PUBLIC_SSR_HOSTNAME;
+export const AppwriteHostname: string = import.meta.env.PUBLIC_APPWRITE_HOSTNAME;
 
 export const AppwriteEndpoint = import.meta.env.PUBLIC_APPWRITE_ENDPOINT;
 export const AppwriteProject = import.meta.env.PUBLIC_APPWRITE_PROJECT;

@@ -1,6 +1,9 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
+  readonly PUBLIC_SSR_HOSTNAME: string;
+  readonly PUBLIC_APPWRITE_HOSTNAME: string;
+
   readonly PUBLIC_APPWRITE_ENDPOINT: string;
   readonly PUBLIC_APPWRITE_PROJECT: string;
   readonly APPWRITE_KEY: string;
