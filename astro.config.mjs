@@ -1,8 +1,8 @@
 import { defineConfig } from 'astro/config';
 // import node from '@astrojs/node';
-import vercel from "@astrojs/vercel/serverless";
-import tailwind from '@astrojs/tailwind';
+import node from "@astrojs/node";
 import svelte from '@astrojs/svelte';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -11,7 +11,10 @@ export default defineConfig({
     //   mode: 'standalone',
     // }),
     site: "http://localhost:4321",
-    adapter: vercel(),
+    adapter: node({
+        mode: "standalone"
+
+    }),
     integrations: [
         tailwind(),
         svelte(),
