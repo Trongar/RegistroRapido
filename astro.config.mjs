@@ -11,7 +11,10 @@ export default defineConfig({
     //   mode: 'standalone',
     // }),
     site: "http://localhost:4321",
-    adapter: node(),
+    adapter: node({
+        mode: "standalone"
+
+    }),
     integrations: [
         tailwind(),
         svelte(),
