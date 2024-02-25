@@ -8,20 +8,22 @@ import "@fontsource-variable/heebo";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		<!-- <ViewTransitions /> -->
+
 		<title>Astro</title>
 	</head>
 	<body>
 		<!-- <NavBarLayout /> -->
 		<slot />
+		<script>
+			import "flowbite";
+			// import "flowbite";
+			import "flowbite/dist/datepicker";
+		</script>
+		<style>
+			body {
+				font-family: "Heebo Variable", sans-serif;
+			}
+		</style>
 	</body>
 </html>
-<script>
-	import "flowbite";
-	import "flowbite";
-	import "flowbite/dist/datepicker";
-</script>
-<style>
-	body {
-		font-family: "Heebo Variable", sans-serif;
-	}
-</style>

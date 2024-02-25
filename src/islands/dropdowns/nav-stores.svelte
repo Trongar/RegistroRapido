@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { navigate } from "astro:transitions/client";
+
     export let stores: Models.Document[] = [];
     export let currentStore: string = "";
 
@@ -9,7 +11,7 @@
             currentTarget: EventTarget & HTMLInputElement;
         },
     ) => {
-        window.location.href = e.currentTarget.value;
+        navigate(e.currentTarget.value);
     };
 </script>
 

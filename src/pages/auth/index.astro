@@ -1,27 +1,11 @@
 ---
 import LayoutBase from "@layouts/base.astro";
 import LoginForm from "@components/forms/login.astro";
-const data = Astro.locals;
 
 // if (data.account) Astro.redirect("/account");
 ---
 
 <LayoutBase>
-    {
-        data.account ? (
-            <p>Logged in as {data.account.$id}</p>
-        ) : (
-            <p>Not logged in</p>
-        )
-    }
-    <!-- {
-        data.account ? (
-            <p>Logged in as {data.account.$id}</p>
-        ) : (
-            <p>Not logged in</p>
-        )
-    }
-    <button id="login">Login</button> -->
     <section
         class="bg-gray-50 dark:bg-gray-900 min-h-screen grid place-items-center"
     >

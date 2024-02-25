@@ -1,13 +1,11 @@
 ---
-import { AppwriteService } from "@lib/appwrite";
-
 import LayoutBase from "@layouts/base.astro";
-
-await AppwriteService.signOut();
 ---
 
 <LayoutBase>espera 5 seg...</LayoutBase>
 
 <script>
-    setTimeout(() => (window.location.href = "/auth"), 5000);
+    document.cookie =
+        "account=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/auth";
 </script>

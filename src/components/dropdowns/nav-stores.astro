@@ -2,14 +2,11 @@
 import ModalNewStore from "@components/modals/new-store.astro";
 import DropdownNavStoreIsland from "@islands/dropdowns/nav-stores.svelte";
 
-import { AppwriteService } from "@lib/appwrite";
-
-const { documents: stores } = await AppwriteService.getStores();
-
 const { storeId: currentStore } = Astro.params;
+const { stores } = Astro.locals.account.prefs;
 ---
 
-<DropdownNavStoreIsland client:load {stores} {currentStore}>
+<DropdownNavStoreIsland client:load transition:persist {stores} {currentStore}>
     <li class="group">
         <div class="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
             <div class="flex items-center h-5">

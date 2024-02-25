@@ -1,6 +1,6 @@
 import type { productFormSchema } from "@schemas/product";
 import type { storeFormSchema } from "@schemas/store";
-import { Account, Avatars, Client, Databases, ID, Query, Teams } from "appwrite";
+import { Account, Avatars, Client, Databases, ID, Query, Teams, type Models } from "appwrite";
 import type { Output } from "valibot";
 
 export const SsrHostname: string = "localhost";
@@ -18,17 +18,26 @@ const avatars = new Avatars(client);
 const teams = new Teams(client);
 const databases = new Databases(client);
 
+
 export const AppwriteService = {
   signOut: async () => {
     await account.deleteSession("current");
   },
   getAccount: async () => {
-    return await account.get();
+    await account.get()
+    await AppwriteService.setPrefs({ stores: (await AppwriteService.getStores()).documents })
+    return await account.get()
+
   },
   getAccountPicture: (name: string) => {
     return avatars
       .getInitials(name.split("").reverse().join(""), 256, 256)
       .toString();
+  },
+  setPrefs: async (prefs: Partial<Models.Preferences>) => {
+    account.updatePrefs(
+      prefs
+    )
   },
   setSession: (hash: string) => {
     const authCookies = {};
@@ -71,13 +80,20 @@ export const AppwriteService = {
     );
   },
   getStores: async () => {
+    let startTime = Date.now();
+
     const teamsIds = (await AppwriteService.getTeams()).teams.map(team => team.$id)
-    return await AppwriteService.getDocuments(
+
+    console.log('teams:', Date.now() - startTime, 'ms');
+    startTime = Date.now();
+    const res = await AppwriteService.getDocuments(
       import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
       import.meta.env.PUBLIC_APPWRITE_COLLECTION_STORE,
       !(teamsIds.length > 0) ? []
         : [Query.equal("$id", teamsIds)]
     )
+    console.log('stores:', Date.now() - startTime, 'ms');
+    return res
   },
   getStore: async (id: string) => {
     return await AppwriteService.getDocument(

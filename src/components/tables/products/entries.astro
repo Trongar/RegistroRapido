@@ -1,5 +1,4 @@
 ---
-import { currentProduct } from "@stores/products";
 import type { Models } from "appwrite";
 interface Props {
     products: Models.DocumentList<Models.Document>;
@@ -38,7 +37,6 @@ const { products } = Astro.props;
                             <input
                                 id="checkbox-table-search-1"
                                 type="checkbox"
-                                onclick="event.stopPropagation()"
                                 class="w-4 h-4 text-primary-600 bg-gray-100 rounded border-gray-300 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                             />
                             <label
@@ -74,6 +72,7 @@ const { products } = Astro.props;
                         <div class="flex items-center space-x-4">
                             <button
                                 type="button"
+                                transition:persist
                                 data-drawer-target="drawer-update-product"
                                 data-drawer-show="drawer-update-product"
                                 aria-controls="drawer-update-product"
@@ -97,6 +96,7 @@ const { products } = Astro.props;
                             </button>
                             <button
                                 type="button"
+                                transition:persist
                                 data-drawer-target="drawer-read-product-advanced"
                                 data-drawer-show="drawer-read-product-advanced"
                                 aria-controls="drawer-read-product-advanced"
@@ -119,6 +119,7 @@ const { products } = Astro.props;
                             </button>
                             <button
                                 type="button"
+                                transition:persist
                                 data-modal-target="delete-modal"
                                 data-modal-toggle="delete-modal"
                                 data-delete
