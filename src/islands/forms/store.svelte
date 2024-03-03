@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { getCookie, overwriteCookie } from "@lib/utils";
     import { storeFormSchema } from "@schemas/store";
 
     import { createForm } from "node_modules/svelte-forms-lib/lib";
@@ -42,6 +43,12 @@
                 });
                 status = "ok";
                 const data = await response.json();
+
+                const accountCookie = getCookie("account");
+                let decodedCookie = decodeURIComponent(accountCookie);
+                let account = JSON.parse(decodedCookie);
+                account.prefs.stores = [...account.prefs.stores, data.store];
+                overwriteCookie("account", encodeURI(account));
                 window.location.href = data.team.$id;
                 return data;
             }
@@ -53,6 +60,7 @@
                 });
                 status = "ok";
                 const data = await response.json();
+
                 window.location.reload();
                 return data;
             }

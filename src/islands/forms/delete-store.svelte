@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { getCookie, overwriteCookie } from "@lib/utils";
     import { deleteFormSchema } from "@schemas/store";
     import type { Models } from "appwrite";
 
@@ -35,6 +36,14 @@
                 body: formData,
             });
             status = "ok";
+            const accountCookie = getCookie("account");
+            let decodedCookie = decodeURIComponent(accountCookie);
+            let account = JSON.parse(decodedCookie);
+            account.prefs.stores = Array(account.prefs.stores).filter(
+                (item) => item.name !== values.name,
+            );
+            overwriteCookie("account", encodeURI(account));
+
             window.location.href = "dashboard";
         },
     });

@@ -119,12 +119,13 @@ export const AppwriteService = {
       data
     )
   },
-  getProducts: async (offset = 0, limit = 10) => {
+  getProducts: async (offset = 0, limit = 10, storeId: string) => {
     return await AppwriteService.getDocuments(
       import.meta.env.PUBLIC_APPWRITE_DATABASE_STORES,
       import.meta.env.PUBLIC_APPWRITE_COLLECTION_PRODUCT,
       [
         Query.offset(offset),
+        Query.equal("storeId", storeId),
         Query.limit(limit),
       ]
     )

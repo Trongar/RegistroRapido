@@ -1,5 +1,4 @@
 ---
-import ModalNewStore from "@components/modals/new-store.astro";
 import DropdownNavStoreIsland from "@islands/dropdowns/nav-stores.svelte";
 
 const { storeId: currentStore } = Astro.params;
@@ -26,8 +25,8 @@ const { stores } = Astro.locals.account.prefs;
             <!-- Modal toggle -->
             <button
                 class="ml-2 text-sm cursor-pointer"
-                data-modal-target="create-store-modal"
-                data-modal-toggle="create-store-modal"
+                data-modal-target="default-modal"
+                data-modal-toggle="default-modal"
             >
                 <div class="font-medium text-gray-900 dark:text-gray-300">
                     <div>Añadir una tienda</div>
@@ -40,6 +39,6 @@ const { stores } = Astro.locals.account.prefs;
             </button>
         </div>
     </li>
-</DropdownNavStoreIsland>
 
-<ModalNewStore />
+    <!-- Modal toggle -->
+</DropdownNavStoreIsland>

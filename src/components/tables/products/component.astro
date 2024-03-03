@@ -8,10 +8,10 @@ import TableProductsFilters from "@components/tables/products/filters.astro";
 import TableProductsHead from "@components/tables/products/head.astro";
 import TableProductsPageSelector from "@components/tables/products/page-selector.astro";
 import { AppwriteService } from "@lib/appwrite";
-const { page = "1" } = Astro.params;
+const { page = "1", storeId } = Astro.params;
 const limit = 10;
 const offset = Number(page) * limit - (limit - 1);
-const products = await AppwriteService.getProducts(offset - 1, limit);
+const products = await AppwriteService.getProducts(offset - 1, limit, storeId);
 ---
 
 <!-- Start block -->

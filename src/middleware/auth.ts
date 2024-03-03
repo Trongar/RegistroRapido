@@ -24,6 +24,7 @@ export const auth = defineMiddleware(
     const accountCookie = cookies.get("account")?.value
 
     let account: Models.User<Models.Preferences>;
+
     if (accountCookie) account = JSON.parse(accountCookie)
     if (account) {
       locals.account = account
