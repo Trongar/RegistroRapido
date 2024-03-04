@@ -1,0 +1,66 @@
+---
+import type { Models } from "appwrite";
+
+interface Props {
+  product: Models.Document;
+}
+const { product } = Astro.props;
+---
+
+<button
+  type="button"
+  transition:persist
+  data-cart={JSON.stringify(product)}
+  class="relative py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+>
+  <svg
+    class="h-4 w-4 mr-2 -ml-0.5"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <path
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.8-3H7.4M11 7H6.3M17 4v6m-3-3h6"
+    ></path>
+  </svg>
+  Añadir
+  <div
+    data-indicator
+    class="sm:hidden inline-flex absolute items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900"
+  >
+    8
+  </div>
+</button>
+
+<script>
+  import {
+    addToCart,
+    getInCartItem,
+    shoppingCart,
+  } from "@stores/shopping-cards";
+
+  const $buttons = document.querySelectorAll<HTMLButtonElement>("[data-cart]");
+  $buttons.forEach(($button) => {
+    const product = JSON.parse($button.dataset.cart);
+    const $indicator =
+      $button.querySelector<HTMLDivElement>("[data-indicator]");
+    shoppingCart.listen(() => {
+        const cartItem = getInCartItem(product.$id);
+      if (cartItem) {
+        $indicator.innerText = cartItem.quantity.toString()
+        $indicator.classList.remove("sm:hidden");
+        return
+      }
+        $indicator.classList.add("sm:hidden");
+
+    });
+    $button.addEventListener("click", (e) => {
+      addToCart(product);
+    });
+  });
+</script>

@@ -1,8 +1,10 @@
 ---
+import ButtonProductAddCart from "@components/buttons/product-add-cart.astro";
 import ButtonProductDelete from "@components/buttons/product-delete.astro";
 import ButtonProductEdit from "@components/buttons/product-edit.astro";
 import ButtonProductView from "@components/buttons/product-view.astro";
 import type { Models } from "appwrite";
+
 interface Props {
     products: Models.DocumentList<Models.Document>;
 }
@@ -74,6 +76,7 @@ const { products } = Astro.props;
                     <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div class="flex items-center space-x-4">
                             <ButtonProductEdit productId={product.$id} />
+                            <ButtonProductAddCart product={product} />
                             <ButtonProductView productId={product.$id} />
                             <ButtonProductDelete productId={product.$id} />
                         </div>

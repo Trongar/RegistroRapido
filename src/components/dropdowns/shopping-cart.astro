@@ -1,0 +1,246 @@
+---
+const { storeId } = Astro.params;
+---
+
+<!-- Dropdown menu -->
+<div
+  class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white rounded divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700"
+  id="shopping-cart-dropdown"
+>
+  <div
+    class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+  >
+    Carrito de compras
+  </div>
+  <div
+    class="max-h-96 overflow-y-scroll"
+    data-shopping-cart-container={storeId}
+  >
+  </div>
+  <template data-shopping-cart-template>
+    <div
+      class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
+    >
+      <div class="flex-shrink-0">
+        <img
+          class="w-11 h-11 rounded-full"
+          src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
+          alt="Bonnie Green avatar"
+          data-img
+        />
+      </div>
+      <dl class="px-3 w-full">
+        <h5 class="font-bold text-sm mb-1.5" data-title>Test</h5>
+        <dd
+          class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400 line-clamp-2"
+          data-desc
+        >
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Facilis,
+          enim minima? Qui et esse odit sunt porro? Eos, impedit. Delectus ea
+          molestias praesentium veritatis voluptates a doloribus, animi
+          expedita. Repellat!
+        </dd>
+        <dd
+          class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+          data-price
+        >
+          $76.00
+        </dd>
+      </dl>
+      <div class="pl-3 w-full">
+        <form class="max-w-xs mx-auto">
+          <label
+            for="quantity-input"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Cantidad:</label
+          >
+          <div class="relative flex items-center max-w-[8rem]">
+            <button
+              type="button"
+              id="decrement-button"
+              data-input-counter-decrement
+              class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+            >
+              <svg
+                class="w-3 h-3 text-gray-900 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 18 2"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 1h16"></path>
+              </svg>
+            </button>
+            <input
+              type="text"
+              data-quantity
+              aria-describedby="helper-text-explanation"
+              class="bg-gray-50 border-x-0 border-gray-300 h-11 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-12 py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="999"
+              value="5"
+              required
+            />
+            <button
+              type="button"
+              data-input-counter-increment
+              class="bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:border-gray-600 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-3 h-11 focus:ring-gray-100 dark:focus:ring-gray-700 focus:ring-2 focus:outline-none"
+            >
+              <svg
+                class="w-3 h-3 text-gray-900 dark:text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 18 18"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 1v16M1 9h16"></path>
+              </svg>
+            </button>
+          </div>
+          <p
+            id="helper-text-explanation"
+            class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+            data-subtotal
+          >
+            $76.00
+          </p>
+        </form>
+      </div>
+      <div class="pl-3 w-full grid place-content-center">
+        <button
+          type="button"
+          data-quit
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        >
+          <svg
+            class="w-3 h-3"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 14"
+          >
+            <path
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"></path>
+          </svg>
+          <span class="sr-only">sacar del carrito</span>
+        </button>
+      </div>
+    </div>
+  </template>
+  <a
+    href="#"
+    class="block py-2 text-base font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-700 dark:text-white dark:hover:underline"
+  >
+    <div class="inline-flex items-center">
+      <svg
+        aria-hidden="true"
+        class="mr-2 w-5 h-5"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+        ><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path
+          fill-rule="evenodd"
+          d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+          clip-rule="evenodd"></path></svg
+      >
+      View all
+    </div>
+  </a>
+</div>
+
+<script>
+  //
+  import {
+    decrementCartItem,
+    getCartItemIndex,
+    incrementCartItem,
+    quitCartItem,
+    shoppingCart,
+    updateCart,
+  } from "@stores/shopping-cards";
+  import { InputCounter } from "flowbite";
+  import { marked } from "marked";
+  const $template = document.querySelector<HTMLTemplateElement>(
+    "[data-shopping-cart-template]"
+  );
+  const $container = document.querySelector<HTMLDivElement>(
+    "[data-shopping-cart-container]"
+  );
+
+  const storeId = $container.dataset.shoppingCartContainer;
+  shoppingCart.listen((value) => {
+    const $elements = value
+      .filter((item, index) => item.storeId === storeId)
+      .map((item) => {
+        const $element = $template.content.cloneNode(true)
+          .childNodes[1] as HTMLDivElement;
+        const $img = $element.querySelector<HTMLImageElement>("[data-img]");
+        const $title =
+          $element.querySelector<HTMLHeadingElement>("[data-title]");
+        const $desc = $element.querySelector<HTMLDetailsElement>("[data-desc]");
+        const $price =
+          $element.querySelector<HTMLDetailsElement>("[data-price]");
+        const $quantity =
+          $element.querySelector<HTMLInputElement>("[data-quantity]");
+        const $decrementEl = $element.querySelector<HTMLButtonElement>(
+          "[data-input-counter-decrement]"
+        );
+        const $incrementEl = $element.querySelector<HTMLButtonElement>(
+          "[data-input-counter-increment]"
+        );
+        const $subtotal =
+          $element.querySelector<HTMLParagraphElement>("[data-subtotal]");
+        const $quit = $element.querySelector<HTMLButtonElement>("[data-quit]");
+        new InputCounter(
+          $quantity,
+          $incrementEl,
+          $decrementEl,
+          {
+            minValue: 1,
+            maxValue: item.product.quantity,
+            onDecrement: () => decrementCartItem(item.product),
+            onIncrement: () => incrementCartItem(item.product),
+          },
+          {
+            id: item.product.$id,
+            override: true,
+          }
+        );
+        $img.src = item.product.image;
+        $title.innerText = item.product.name;
+        $desc.innerHTML = marked(item.product.description) as string;
+        $price.innerText = (item.product.price / 100).toLocaleString("es-mx", {
+          style: "currency",
+          currency: "MXN",
+        });
+        $quantity.value = item.quantity.toString();
+        $subtotal.innerText = (
+          (item.product.price / 100) *
+          item.quantity
+        ).toLocaleString("es-mx", {
+          style: "currency",
+          currency: "MXN",
+        });
+        $quit.addEventListener("click", () => {
+          updateCart(quitCartItem(getCartItemIndex(item.product.$id)));
+          console.log("quit");
+        });
+        //   $container.appendChild($element);
+        return $element;
+      });
+    $container.replaceChildren(...$elements);
+  });
+</script>
